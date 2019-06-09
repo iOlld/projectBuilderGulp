@@ -29,7 +29,7 @@ var paths = {
     dest: './build/js',
     watch: './src/blocks/**/*.js',
     watchPlugins: './src/plugins/*.js',
-    // watchPlugins: './src/scripts/plugins/*.js'
+    watchPlugins: './src/scripts/plugins/*.js'
   },
   images: {
     src: './src/blocks/**/img/*',
@@ -37,9 +37,9 @@ var paths = {
     watch: ['./src/blocks/**/img/*']
   },
   fonts: {
-    src: './src/fonts/*',
+    src: './src/fonts/**/*',
     dest: './build/fonts',
-    watch: './src/fonts/*'
+    watch: './src/fonts/**/*'
   }
 };
 
@@ -64,7 +64,7 @@ gulp.task('styles', function () {
     .pipe(plumber())
     .pipe(sass())
     .pipe(autoprefixer({
-      browsers: ['last 30 versions']
+      browsers: ['last 50 versions']
     }))
     .pipe(gulp.dest(paths.css.dest))
     .pipe(browserSync.reload({
@@ -75,9 +75,12 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
   return gulp.src(paths.js.src)
     .pipe(plumber())
-    .pipe(concat('scripts.js'))
-    .pipe(concat('main.js'))
-    .pipe(gulp.dest(paths.js.dest));
+    // .pipe(concat('scripts.js'))
+    // .pipe(concat('main.js'))
+    .pipe(gulp.dest(paths.js.dest))
+    .pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 gulp.task('images', function () {
